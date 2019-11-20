@@ -1,10 +1,3 @@
-class DDL:
-    
-    def __init__(self, key, value):
-        self.key = key
-        self.value = value
-        self.prev = None
-        self.next = None
 
 class LRU:
     
@@ -12,8 +5,6 @@ class LRU:
         self.max_cap = maxcap
         self.curr_cap = 0
         self.dict = {}
-        self.head = None
-        self.tail = None
         
     def max_capacity(self):
         return self.max_cap
@@ -126,22 +117,17 @@ class MFE:
         while not heap.is_empty() or heap is None:
             i = heap.extract_max()
             print(i, " : ", self.dict[i])
-            
-            
-        
-                
-    
-        
     
 def main():
     lru=LRU(3)
     lru.put('yellow', 3)
     lru.put('black', 2)
+    lru.put('red', 0)
     print(lru.dict)
     
     word_file = open("sample.txt", "r")
     mfe=MFE(word_file)
-    #mfe.get_most_freq_elem()    
+    mfe.get_most_freq_elem()    
     
     
     
