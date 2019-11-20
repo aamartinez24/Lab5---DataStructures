@@ -13,6 +13,7 @@ class LRU:
         return len(self.dict)
     
     def get(self, key):
+        # if key exists in dictionary return value else return -1.
         if key in self.dict:
             return self.dict[key]
         return -1
@@ -20,11 +21,14 @@ class LRU:
     def put(self, key, value = 0):
         if value < 0:
             return print("Error: value less than zero")
+        # If key already exists in dictionary and already has a value then change current value.
         if key in self.dict:
             self.dict[key] = value
+        # dictionary has not reached max capacity then you can insert new keys to the dictionary.
         if self.curr_cap != self.max_cap:
             self.dict[key] = value
             self.curr_cap += 1
+        # Sort the dictionary by value and exchange the key with the minimum value with a new key.
         else:
             sortlist = sorted(self.dict.items(), key=lambda x: x[1])#
             sortlist[0] = (key, value)
@@ -65,7 +69,7 @@ class maxheap():
             return
 
         parent_index = (i - 1) // 2
-
+        # Compare the values of each key to insert on the heap.
         if self.dict[self.tree[parent_index]] < self.dict[self.tree[i]]:
             self.tree[i], self.tree[parent_index] = self.tree[parent_index], self.tree[i]
             self._percolate_up(parent_index)
@@ -101,19 +105,22 @@ class MFE:
         self.dict = {}
         self.insert_list(word_list)
         
-        
     def insert_list(self, word_list):
+        # insert each word in a list on the dictionary.
         for word in word_list:
             word = word.lower().rstrip()
+            # if word repeates add to the value.
             if word in self.dict:
                 self.dict[word] += 1
             else:
                 self.dict[word] = 1
                 
     def get_most_freq_elem(self):
+        # create a max heap from the keys of the dictionary.
         heap = maxheap(self.dict)
         for word in self.dict:
             heap.insert(word)
+        # extract the root to print out keys from decending order.
         while not heap.is_empty() or heap is None:
             i = heap.extract_max()
             print(i, " : ", self.dict[i])
